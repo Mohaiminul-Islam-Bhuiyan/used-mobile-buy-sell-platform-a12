@@ -1,87 +1,82 @@
 import React, { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../Contexts/AuthProvider';
+import { FcGoogle } from "react-icons/fc";
 import { toast } from 'react-toastify'
-
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 
 const Login = () => {
-
-    const { register, formState: { errors }, handleSubmit } = useForm()
-    const [loginError, setLoginError] = useState("")
-    const location = useLocation()
+    const [userEmail, setUserEmail] = useState('')
     const navigate = useNavigate()
-    const { login } = useContext(AuthContext)
+    const location = useLocation()
 
     const from = location.state?.from?.pathname || '/'
 
+    const { login, signInWithGoogle, resetPassword } = useContext(AuthContext)
 
-    const handleLogin = data => {
-        console.log(data);
-        setLoginError('')
-        login(data.email, data.password)
+    const handleSubmit = event => {
+        event.preventDefault()
+        const form = event.target
+        const email = form.email.value
+        const password = form.password.value
+
+        login(email, password)
             .then(result => {
-                const user = result.user
-                console.log(user);
-                console.log(data.email)
-                toast.success("logged in successfully")
+                toast.success('login successful')
+                navigate(from, { replace: true })
+                console.log(result.user);
+            })
+            .catch(err => console.error(err))
+        form.reset()
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+                toast.success('signed in with google')
                 navigate(from, { replace: true })
             })
-            .catch(error => {
-                setLoginError(error.message)
-                console.log(error)
+    }
+
+    const handleReset = () => {
+        resetPassword(userEmail)
+            .then(() => {
+                toast.success('reset link has been sent, please check email')
             })
+            .catch(err => toast.error(err.message))
     }
 
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
                 <h2 className='text-xl text-center'>Login</h2>
-                <form onSubmit={handleSubmit(handleLogin)}>
-                    <div className="form-control w-full max-w-xs">
+                <form onSubmit={handleSubmit} className="card-body">
+                    <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="email"
-                            {...register("email", { required: "Email is required" })}
-                            className="input input-bordered w-full max-w-xs" />
-                        {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
-                        <input />
+                        <input onBlur={event => setUserEmail(event.target.value)} type="text" name='email' className="input input-bordered" required />
                     </div>
-
-                    <div className="form-control w-full max-w-xs">
+                    <div className="form-control">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password"
-                            {...register("password",
-                                {
-                                    required: "Password is required",
-                                    minLength: { value: 6, message: "password must be at least 6 characters or longer" },
-                                })}
-                            className="input input-bordered w-full max-w-xs" />
-                        {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
-
+                        <input type="password" name='password' className="input input-bordered" />
                         <label className="label">
-                            <span className="label-text">Forget Password</span>
+                            <button onClick={handleReset} className="label-text-alt link link-hover">Forgot password?</button>
                         </label>
-                        <input />
                     </div>
-                    <input className='btn btn-primary w-full' value="Login" type="submit" />
-                    <div className='text-red-600'>
-                        {
-                            loginError &&
-                            <p>{loginError}</p>
-                        }
+                    <div className="form-control mt-6">
+                        <button className="btn btn-primary">Login</button>
                     </div>
                 </form>
-                <br />
-                <p>New to Doctors Portal <Link to='/signup' className='text-secondary'>Create new account</Link></p>
+                <p>New to Mobile Haat <Link to='/signup' className='text-secondary'>Create new account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline border-0 w-full'>CONTINUE WITH google<FcGoogle className='w-10'></FcGoogle> </button>
             </div>
         </div>
+
     );
 };
 

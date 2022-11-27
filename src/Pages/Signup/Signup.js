@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form';
+import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Signup = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
 
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { createUser, updateUser } = useContext(AuthContext)
+    const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext)
     const [signupError, setSignupError] = useState("")
 
     const handleSignup = data => {
@@ -24,12 +28,22 @@ const Signup = () => {
                 updateUser(userInfo)
                     .then(() => {
                         console.log(data.name, data.email)
+                        navigate(from, { replace: true })
                     })
                     .catch(err => console.log(err))
             })
             .catch(err => {
                 setSignupError(err.message)
                 console.log(err)
+            })
+    }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+                toast.success('signed in with google')
+                navigate(from, { replace: true })
             })
     }
 
@@ -74,10 +88,6 @@ const Signup = () => {
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
-
-                        <label className="label">
-                            <span className="label-text">Forget Password</span>
-                        </label>
                         <input />
                     </div>
                     <input className='btn btn-primary w-full' value="Signup" type="submit" />
@@ -88,7 +98,7 @@ const Signup = () => {
                 <br />
                 <p>Already have an account <Link to='/login' className='text-secondary'>Please login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH google<FcGoogle className='w-10'></FcGoogle> </button>
             </div>
         </div>
     );
