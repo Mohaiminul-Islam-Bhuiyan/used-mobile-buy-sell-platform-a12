@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ImMobile } from 'react-icons/im'
+import { toast } from 'react-toastify'
 import { Link, NavLink } from 'react-router-dom'
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Header = () => {
+
+    const { user, logout } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logout()
+            .then(toast.warning('user logged out'))
+            .catch(err => console.log(err))
+    }
 
     const menuItems = <React.Fragment>
         <li><NavLink to='/home'>Home</NavLink></li>
         <li><NavLink to='/blog'>Blog</NavLink></li>
-        <li><NavLink to='/signup'>Signup</NavLink></li>
-        <li><NavLink to='/login'>Login</NavLink></li>
+        {
+            user?.email ? (
+                <div className="dropdown dropdown-end">
+                    <label tabIndex={3} className="btn btn-ghost btn-circle avatar">
+                        <div className="w-10 rounded-full">
+                            <img src={user?.photoURL ? user.photoURL : 'NoImg'} alt="" />
+                        </div>
+                    </label>
+                    <ul tabIndex={4} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+
+                        <li><Link to='/myreviews'>My Reviews</Link></li>
+                        <li><a>Add Service</a></li>
+                        <button onClick={handleLogout}>Logout</button>
+                    </ul>
+                </div>
+            )
+                :
+                (
+                    <>
+                        <li><NavLink to='/login'>Login</NavLink></li>
+                        <li><NavLink to='/signup'>Signup</NavLink></li>
+                    </>
+                )
+        }
     </React.Fragment>
 
     return (
