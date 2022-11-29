@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import CategoryCard from './CategoryCard';
+import { Link, useLoaderData } from 'react-router-dom';
+import ProductsCard from './ProductsCard';
 
-const ProductCategories = () => {
 
-    const [categories, setCategories] = useState([])
+const AllProducts = () => {
 
-    useEffect(() => {
-        fetch('http://localhost:5000/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
-    })
+    // const [products, setProducts] = useState([])
+
+    const products = useLoaderData()
+
     return (
         <div className='my-5'>
             <div className='text-center mb-4'>
@@ -18,14 +17,14 @@ const ProductCategories = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
-                    categories.map(category => <CategoryCard
-                        key={category._id}
-                        category={category}
-                    ></CategoryCard>)
+                    products.map(product => <ProductsCard
+                        key={product._id}
+                        product={product}
+                    ></ProductsCard>)
                 }
             </div>
         </div>
     );
 };
 
-export default ProductCategories;
+export default AllProducts;
