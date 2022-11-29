@@ -10,7 +10,13 @@ const Signup = () => {
     const location = useLocation()
     const from = location.state?.from?.pathname || '/'
 
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            type: "buyer"
+        },
+        mode: "onChange"
+    })
+
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext)
     const [signupError, setSignupError] = useState("")
 
@@ -90,7 +96,55 @@ const Signup = () => {
                         {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
                         <input />
                     </div>
-                    <input className='btn btn-primary w-full' value="Signup" type="submit" />
+
+
+
+
+                    {/* <div className="form-control">
+                        <label className="label cursor-pointer">
+                            <span className="label-text">Seller Account</span>
+                            <input type="radio"
+                                value="seller"
+                                {...register("type", {
+                                    required: true
+                                })}
+                                name="radio-10" className="radio checked:bg-blue-500" />
+                        </label>
+                    </div>
+                    <div className="form-control">
+                        <label className="label cursor-pointer">
+                            <span className="label-text">Buyer Account</span>
+                            <input type="radio"
+                                value="buyer"
+                                {...register("type", {
+                                    required: true
+                                })}
+                                name="radio-10" className="radio checked:bg-blue-500" />
+                        </label>
+                    </div> */}
+
+
+                    <label>
+                        <div>
+                            <input type="radio" value="seller" {...register("type", {
+                                required: true
+                            })} />
+                            Seller Account
+                        </div>
+                    </label>
+                    <label>
+                        <div>
+                            <input type="radio" value="buyer" {...register("type", {
+                                required: true
+                            })} />
+                            Buyer Account
+                        </div>
+                    </label>
+
+
+
+
+                    <input className='btn btn-primary w-full mt-5 bg-gradient-to-r from-primary to-secondary text-white' value="Signup" type="submit" />
                     {
                         signupError && <p className='text-red-600'>{signupError}</p>
                     }

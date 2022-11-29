@@ -2,6 +2,7 @@ import React from 'react';
 import Lottie from 'lottie-react'
 import { Link } from 'react-router-dom'
 import aboutUs from '../../../assets/77877-about-us.json'
+import PrimaryButton from '../../../Components/PrimaryButton';
 
 const About = () => {
     return (
@@ -18,7 +19,7 @@ const About = () => {
                         connecting people for more than <br />
                         <span className='font-bold text-6xl text-orange-600'>15</span> years</h1>
                     <p className="py-2">If you are trying to buy or sell your product at a best price then you are in the right place. Choose the best match for you.</p>
-                    <button className="btn btn-primary"><Link to='/'>Get More Info</Link></button>
+                    <PrimaryButton><Link to='/'>Get More Info</Link></PrimaryButton>
                 </div>
             </div>
         </div>

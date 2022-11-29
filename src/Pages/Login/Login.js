@@ -68,7 +68,7 @@ const Login = () => {
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white">Login</button>
                     </div>
                 </form>
                 <p>New to Mobile Haat <Link to='/signup' className='text-secondary'>Create new account</Link></p>

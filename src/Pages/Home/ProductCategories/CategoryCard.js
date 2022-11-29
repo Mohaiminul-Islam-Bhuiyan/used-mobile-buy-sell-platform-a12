@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PrimaryButton from '../../../Components/PrimaryButton';
 
 
 const CategoryCard = ({ category }) => {
@@ -10,9 +11,11 @@ const CategoryCard = ({ category }) => {
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
                 <div className="card-actions justify-end">
-                    <Link to={`/category/${category_id}`}>
-                        <button className="btn btn-primary">View All Items</button>
-                    </Link>
+                    <PrimaryButton>
+                        <Link to={`/category/${category_id}`}>
+                            View All Items
+                        </Link>
+                    </PrimaryButton>
                 </div>
             </div>
         </div>

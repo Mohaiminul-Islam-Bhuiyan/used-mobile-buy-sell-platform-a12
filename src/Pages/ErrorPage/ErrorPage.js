@@ -3,6 +3,7 @@ import Lottie from 'lottie-react'
 import { Link } from 'react-router-dom'
 import { useRouteError } from 'react-router-dom'
 import errorAnime from '../../assets/89922-404-page.json'
+import PrimaryButton from '../../Components/PrimaryButton';
 
 const ErrorPage = () => {
     const error = useRouteError()
@@ -16,7 +17,7 @@ const ErrorPage = () => {
                     <p>{error.status}</p>
                 </div>
             )}
-            <button className='btn btn-primary'><Link to='/'>Back to home</Link></button>
+            <PrimaryButton><Link to='/'>Back to home</Link></PrimaryButton>
         </div>
     );
 };
