@@ -20,20 +20,21 @@ const Signup = () => {
     const { createUser, updateUser, signInWithGoogle } = useContext(AuthContext)
     const [signupError, setSignupError] = useState("")
 
+
     const handleSignup = data => {
-        console.log(data);
+        // console.log(data);
         setSignupError("")
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user
-                console.log(user);
+                // console.log(user);
                 toast.success("user created successfully")
                 const userInfo = {
                     displayName: data.name
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        console.log(data.name, data.email)
+                        saveUser(data.name, data.email, data.type)
                         navigate(from, { replace: true })
                     })
                     .catch(err => console.log(err))
@@ -49,8 +50,25 @@ const Signup = () => {
             .then(result => {
                 console.log(result.user);
                 toast.success('signed in with google')
+                saveUser(result.user.displayName, result.user.email, "buyer")
                 navigate(from, { replace: true })
             })
+    }
+
+    const saveUser = (name, email, type) => {
+        const user = { name, email, type };
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('saved user', data);
+            })
+
     }
 
     return (
