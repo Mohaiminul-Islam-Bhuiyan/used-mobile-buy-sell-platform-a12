@@ -12,6 +12,7 @@ import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login/Login'
 import Payment from '../Pages/Payment/Payment'
 import Signup from '../Pages/Signup/Signup'
+import AdminRoute from './AdminRoute'
 import PrivateRoute from './PrivateRoute'
 
 const router = createBrowserRouter([
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allusers',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: '/dashboard/add-product',
@@ -67,7 +68,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/manage-allProducts',
-                element: <ManageAllProducts></ManageAllProducts>
+                element: <AdminRoute><ManageAllProducts></ManageAllProducts></AdminRoute>
             },
             {
                 path: '/dashboard/payment/:id',
