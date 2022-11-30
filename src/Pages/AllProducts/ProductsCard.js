@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import PrimaryButton from '../../Components/PrimaryButton';
+import BookingModal from './BookingModal';
 
-const ProductsCard = ({ product }) => {
+const ProductsCard = ({ product, setProduct }) => {
     const { picture, name, location, resalePrice, originalPrice, yearOfUse, timeOfPost, sellerName } = product
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -16,9 +17,11 @@ const ProductsCard = ({ product }) => {
                 <p>Time Of Post : {timeOfPost}</p>
                 <p>Seller Name : {sellerName}</p>
                 <div className="card-actions justify-center">
-                    <Link to={`/categories`}>
-                        <PrimaryButton>Book now</PrimaryButton>
-                    </Link>
+                    <label
+                        htmlFor="booking-modal" className="btn btn-primary bg-gradient-to-r from-primary to-secondary text-white"
+                        onClick={() => setProduct(product)}
+                    >Book Now</label>
+
                 </div>
             </div>
         </div>
