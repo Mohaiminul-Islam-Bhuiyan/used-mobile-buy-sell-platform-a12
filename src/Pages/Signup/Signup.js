@@ -116,32 +116,6 @@ const Signup = () => {
                     </div>
 
 
-
-
-                    {/* <div className="form-control">
-                        <label className="label cursor-pointer">
-                            <span className="label-text">Seller Account</span>
-                            <input type="radio"
-                                value="seller"
-                                {...register("type", {
-                                    required: true
-                                })}
-                                name="radio-10" className="radio checked:bg-blue-500" />
-                        </label>
-                    </div>
-                    <div className="form-control">
-                        <label className="label cursor-pointer">
-                            <span className="label-text">Buyer Account</span>
-                            <input type="radio"
-                                value="buyer"
-                                {...register("type", {
-                                    required: true
-                                })}
-                                name="radio-10" className="radio checked:bg-blue-500" />
-                        </label>
-                    </div> */}
-
-
                     <label>
                         <div>
                             <input type="radio" value="seller" {...register("type", {

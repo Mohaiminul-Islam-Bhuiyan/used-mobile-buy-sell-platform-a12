@@ -3,7 +3,9 @@ import DashboardLayout from '../Layout/DashboardLayout'
 import Main from '../Layout/Main'
 import AllProducts from '../Pages/AllProducts/AllProducts'
 import Blog from '../Pages/Blog/Blog'
+import AddProduct from '../Pages/Dashboard/AddProduct'
 import AllUsers from '../Pages/Dashboard/AllUsers'
+import ManageAllProducts from '../Pages/Dashboard/ManageAllProducts'
 import MyBookings from '../Pages/Dashboard/MyBookings'
 import ErrorPage from '../Pages/ErrorPage/ErrorPage'
 import Home from '../Pages/Home/Home'
@@ -57,7 +59,15 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/allusers',
                 element: <AllUsers></AllUsers>
-            }
+            },
+            {
+                path: '/dashboard/add-product',
+                element: <AddProduct></AddProduct>
+            },
+            {
+                path: '/dashboard/manage-allProducts',
+                element: <ManageAllProducts></ManageAllProducts>
+            },
         ]
     }
 ])
