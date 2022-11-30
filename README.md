@@ -9,3 +9,5 @@
 * environment variable has been used to hide confidential informations 
 * stripe has been used for payment
 * react hook form and react query has been used
+
+* live weblink: https://mobile-haat.web.app/ 

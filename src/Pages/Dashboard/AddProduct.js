@@ -13,7 +13,7 @@ const AddDoctor = () => {
     const { data: categories, isLoading, } = useQuery({
         queryKey: ['category_id'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/productCategory`)
+            const res = await fetch(`https://assignment-twelve-server-nine.vercel.app/productCategory`)
             const data = await res.json()
             return data
         }
@@ -44,7 +44,7 @@ const AddDoctor = () => {
                     }
 
                     // save product info to database
-                    fetch(`http://localhost:5000/products`, {
+                    fetch(`https://assignment-twelve-server-nine.vercel.app/products`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'

@@ -18,7 +18,7 @@ const ManageAllProducts = () => {
         queryKey: ["products"],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/products')
+                const res = await fetch('https://assignment-twelve-server-nine.vercel.app/products')
                 const data = await res.json()
                 return data
             }
@@ -29,7 +29,7 @@ const ManageAllProducts = () => {
     })
 
     const handleDeleteProduct = product => {
-        fetch(`http://localhost:5000/products/${product._id}`, {
+        fetch(`https://assignment-twelve-server-nine.vercel.app/products/${product._id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
