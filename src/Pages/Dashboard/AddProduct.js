@@ -40,8 +40,7 @@ const AddDoctor = () => {
                         resalePrice: data.resalePrice,
                         originalPrice: data.originalPrice,
                         yearOfUse: data.yearOfUse,
-                        timeOfPost: data.timeOfPost,
-                        sellerName: data.sellerName,
+                        sellerName: data.sellerName
                     }
 
                     // save product info to database
@@ -164,17 +163,6 @@ const AddDoctor = () => {
                     </label>
                     <input type="number"
                         {...register("yearOfUse", { required: "Name is required" })}
-                        className="input input-bordered w-full max-w-xs" />
-                    {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
-                    <input />
-                </div>
-
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">time Of Post</span>
-                    </label>
-                    <input type="number"
-                        {...register("timeOfPost", { required: "Name is required" })}
                         className="input input-bordered w-full max-w-xs" />
                     {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
                     <input />

@@ -10,6 +10,7 @@ import MyBookings from '../Pages/Dashboard/MyBookings'
 import ErrorPage from '../Pages/ErrorPage/ErrorPage'
 import Home from '../Pages/Home/Home'
 import Login from '../Pages/Login/Login'
+import Payment from '../Pages/Payment/Payment'
 import Signup from '../Pages/Signup/Signup'
 import PrivateRoute from './PrivateRoute'
 
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/manage-allProducts',
                 element: <ManageAllProducts></ManageAllProducts>
+            },
+            {
+                path: '/dashboard/payment/:id',
+                element: <Payment></Payment>,
+                loader: ({ params }) => fetch(`http://localhost:5000/bookings/${params.id}`)
             },
         ]
     }
