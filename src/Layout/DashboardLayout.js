@@ -2,12 +2,15 @@ import React, { useContext } from 'react';
 import { Link, Outlet, NavLink } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
+import useSeller from '../hooks/useSeller';
 
 import Header from '../Pages/Shared/Header';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext)
     const [isAdmin] = useAdmin(user?.email)
+    const [isSeller] = useSeller(user?.email)
+
     return (
         <div>
             <Header></Header>
@@ -19,13 +22,20 @@ const DashboardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80  text-base-content">
-                        <li><NavLink to='/dashboard'>My Bookings</NavLink></li>
+                        <li><Link to='/dashboard'>My Bookings</Link></li>
                         {
-                            // isAdmin &&
+                            isAdmin &&
                             <>
                                 <li><Link to='/dashboard/allusers'>All users</Link></li>
-                                <li><Link to='/dashboard/add-doctor'>Add a doctor</Link></li>
-                                <li><Link to='/dashboard/manage-doctors'>Manage doctors</Link></li>
+                                <li><Link to='/dashboard/add-product'>Add a Product</Link></li>
+                                <li><Link to='/dashboard/manage-allProducts'>Manage users</Link></li>
+                            </>
+                        }
+                        {
+                            isSeller &&
+                            <>
+                                <li><Link to='/dashboard/add-product'>Add a Product</Link></li>
+                                <li><Link to='/dashboard/manage-products'>My Products</Link></li>
                             </>
                         }
                     </ul>
