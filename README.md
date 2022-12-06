@@ -11,3 +11,7 @@
 * react hook form and react query has been used
 
 * live weblink: https://mobile-haat.web.app/ 
+
+## Admin 
+* email: rafey5513@gmail.com
+* password:  1@Aasdf
